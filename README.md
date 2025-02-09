@@ -36,5 +36,3 @@ Unlike other services, this project does **not** require API keys because:
 - **Security**: Since all key generation is done **entirely in your browser**, there is no risk of data leaks or MITM attacks.
 - **Transparency**: Being fully **open source**, anyone can audit the code and verify there are no hidden risks.
 - **No Dependencies on Centralized Services**: This tool does not rely on external APIs, reducing the risk of downtime, rate limits, or censorship.
-
-By keeping everything local and open source, we ensure **maximum security and full user control over their wallet generation process**.
