@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Solana Vanity Generator</title>
+
+    <style>
+
+      .green-text, .stats span, .highlight, .tab.active, .gradient-text {
+    background: linear-gradient(135deg, #14f195 0%, #8b5cf6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: bold;
+}
+
+.example-address {
+    font-weight: bold;
+    background: linear-gradient(135deg, #14f195, #8b5cf6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 1em;
+}
+
+
+header {
+    position: absolute;
+    top: 35px;
+    left: 30px;
+}
+
+.logo {
+    width: 190px;
+    height: auto;
+    display: block;
+    transition: transform 0.2s ease;
+}
+
+.logo:hover {
+    transform: scale(1.1);
+}
+
+.tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 25px;
+    position: relative;
+}
+
+.tabs::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(90deg, #14f195, #8b5cf6);
+    border-radius: 2px;
+}
+        
+        h1 {
+    font-size: 2.2em;
+    text-align: center;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+.gradient-text {
+    background: linear-gradient(135deg, #14f195 0%, #4e8cff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: bold;
+}
+
+
+
+        .tab {
+            padding: 15px 25px;
+            cursor: pointer;
+            border-radius: 6px 6px 0 0;
+            background: #252525;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+        .tab.active {
+            background: #14f195;
+            color: #000;
+        }
+        .tab:not(.active):hover {
+            background: #3d3d3d;
+        }
+        .about-content {
+            line-height: 1.6;
+            display: none;
+        }
+        .about-content h2 {
+            color: #14f195;
+            margin-top: 20px;
+        }
+        .about-content ul {
+            padding-left: 20px;
+            margin: 15px 0;
+        }
+        .about-content li {
+            margin-bottom: 10px;
+        }
+        .highlight {
+            color: #14f195;
+            font-weight: bold;
+        }
+        .security-note {
+            background: #331010;
+            color: #ff6666;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #ff4444;
+            margin: 20px 0;
+        }
+        
+.searching, .match-found, .attempts-text {
+    background: linear-gradient(135deg, #14f195, #8b5cf6); 
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: bold;
+    font-size: 1.4rem;
+    text-align: center;
+}
+
+
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            max-width: 800px; 
+            margin: 0 auto; 
+            padding: 20px;
+            background: #1a1a1a;
+            color: #ffffff;
+        }
+        .container { 
+            background: #2d2d2d; 
+            padding: 30px; 
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .container { 
+            background: #2d2d2d; 
+            padding: 30px; 
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        input {
+            padding: 12px;
+            margin: 5px 0;
+            flex: 1;
+            min-width: 200px;
+            background: #3d3d3d;
+            border: 1px solid #4d4d4d;
+            border-radius: 6px;
+            color: #fff;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+        input:focus {
+            border-color: #14f195;
+            outline: none;
+        }
+        button {
+            background: linear-gradient(135deg, #14f195 0%, #4e8cff 100%);
+            color: black;
+            padding: 15px 25px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: transform 0.2s, opacity 0.2s;
+            flex: 1;
+            min-width: 150px;
+            font-size: 0.95em;
+        }
+        button:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+        button:active {
+            transform: translateY(0);
+        }
+        .warning {
+            background: #331010;
+            color: #ff6666;
+            padding: 10px;
+            border-radius: 8px;
+            margin: 10px 0;
+            border: 1px solid #ff4444;
+            width: 100%;
+        }
+        .result {
+            margin-top: 25px;
+            background: #252525;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .tab.active {
+    background: linear-gradient(135deg, #14f195 0%, #4e8cff 100%);
+    color: white !important;
+    font-weight: bold;
+    border: none;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.6);
+
+    -webkit-text-fill-color: white !important; 
+}
+
+
+
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 30px;
+    margin-left: 10px;
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: hsl(0, 0%, 29%) !important; 
+    border-radius: 34px;
+}
+
+.toggle-slider:before {
+    position: absolute;
+    content: "";
+    height: 22px;
+    width: 22px;
+    left: 4px;
+    bottom: 4px;
+    background-color: rgb(255, 255, 255);
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .toggle-slider {
+    background: linear-gradient(135deg, #14f195, #8b5cf6)!important;
+}
+
+
+input:checked + .toggle-slider:before {
+    transform: translateX(30px);
+}
+
+
+        .hidden-private-key {
+            filter: blur(8px);
+            transition: filter 0.3s ease;
+            user-select: none;
+        }
+        .visible-private-key {
+            filter: none;
+        }
+        #status {
+            margin: 15px 0;
+            text-align: center;
+            color: #14f195;
+            font-style: italic;
+        }
+        .key-display {
+            background: #3d3d3d;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 10px 0;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .button-group {
+            font-weight: 900; 
+            font-size: 1rem;  
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+            font-size: 0.9em;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .stats span {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 0.9em;
+            color: #14f195;
+            font-weight: bold;
+        }
+        .button-row {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            width: 100%;
+            flex-wrap: wrap;
+        }
+
+        .case-toggle span {
+    background: linear-gradient(135deg, #14f195, #4e8cff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: bold;
+}
+
+
+        .case-toggle {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+            font-weight: bold;
+            width: 100%;
+            color: #14f195
+        }
+        #stopBtn {
+            background: linear-gradient(135deg, #ff6666 0%, #ff4444 100%);
+            color: rgb(0, 0, 0);
+        }
+        .private-key-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            width: 100%;
+        }
+        .toggle-button {
+            padding: 6px 12px !important;
+            font-size: 0.85em !important;
+            min-width: 70px !important;
+            margin-left: 10px;
+            flex-shrink: 0;
+        }
+        .key-display span {
+            flex-grow: 1;
+            overflow-wrap: anywhere;
+            padding-right: 10px;
+        }
+        @media (max-width: 600px) {
+            button {
+                width: 100%;
+                min-width: auto;
+            }
+            .button-row {
+                flex-direction: column;
+            }
+        }
+
+        body {
+    background-color: #000000;
+    color: #e0e0e0;
+}
+
+.container {
+    background: #000000;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0);
+}
+
+    </style>
+</head>
+<body>
+    <header>
+        <img src="logo.png" alt="Website Logo" class="logo">
+
+    </header>
+
+
+    <div class="container">
+        <h1><span class="emoji"></span> <span class="gradient-text">Solana Vanity Wallet Generator</span></h1>
+        </br>  
+        <div class="tabs">
+            <div class="tab active" onclick="showTab('generator')">Generator</div>
+            <div class="tab" onclick="showTab('about')">About</div>
+        </div>
+
+      
+
+        <div id="generator-content">
+            <div class="input-group">
+                <input type="text" id="prefix" placeholder="Starts with (e.g., cupsy)">
+                <input type="text" id="suffix" placeholder="Ends with (e.g., pump)">
+                
+                <div>
+                    <span class="example-address">Example address:</span>
+                    <span id="exampleAddress">z5iwWmz93H2cR1BtLB4VDZ3gZnfGrSqmaTsKurvnac77</span>
+                </div>
+                
+                
+
+                <div class="button-row">
+                    <div class="warning">
+                        ⚠️ WARNING: Generated private keys NEVER leave your browser. Always keep keys secure!
+                    </div>
+                    <button onclick="startGeneration()">Generate Wallet</button>
+                    <button onclick="stopGeneration()" id="stopBtn">Stop</button>
+                </div>
+
+                <div class="case-toggle">
+                    <span>Case-sensitive matching:</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="caseSensitive">
+                        <span class="toggle-slider"></span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="stats">
+                <span id="attempts" class="green-text">Attempts: 0</span>
+                <span id="speed">Speed: 0 keys/sec</span>
+                <span id="eta">ETA:</span>
+                <span id="elapsed">Elapsed: 0s</span>
+            </div>
+
+            <div id="status"></div>
+            <div id="result" class="result"></div>
+        </div>
+
+        <div id="about-content" class="about-content">
+
+            <h2 class="green-text">Important Notes</h2>
+
+            <ul>
+                <li>⏳ Longer patterns exponentially increase search time </li>
+                <li>⏱️ We recommend 6 costume characters to be the max </li>
+                <li>💻 Performance depends on your device's processing power</li>
+                <li>🔑 Always backup private keys securely</li>
+                <li>🛑 Never share private keys with anyone</li> 
+            </ul>
+        
+            <div class="security-note">
+                🔒 Security First: All key generation happens locally in your browser. No keys are ever transmitted over the network. Always keep keys secure and backed up!
+            </div>
+
+            <h2 class="gradient-text">About This Tool</h2>
+            <p>This Solana vanity address generator helps you create Solana wallet addresses with custom prefixes and/or suffixes.
+                
+            </p>
+
+            <h2 class="gradient-text">How It Works</h2>
+            <ul>
+                <li>Uses Solana's cryptographic library to generate key pairs locally</li>
+                <li>Brute-force checks millions of addresses per second using Web Workers</li>
+                <li>Matches addresses against your desired pattern (prefix/suffix)</li>
+                <li>Displays matching address with its private key</li>
+            </ul>
+
+            <h2 class="gradient-text">Safety Guidelines</h2>
+            <ul>
+                <li>Only use this tool on trusted devices</li>
+                <li>Double-check URL to prevent phishing</li>
+                <li>Consider using in incognito mode</li>
+                <li>After generation, clear browser history</li>
+            </ul>
+
+            <h2 class="gradient-text">Technical Details</h2>
+            <ul>
+                <li>Web Workers for parallel processing</li>
+                <li>Solana Web3.js library</li>
+                <li>Base58 encoding/decoding</li>
+                <li>Cryptographically secure random number generation</li>
+            </ul>
+            <h2 class="gradient-text">DONATE</h2>
+            <ul>
+                <li>THXxQUUrjp3i8h99u4Qrk6BLx3x87HEEvn2MdMmbHnf</li>
+            </ul>
+        </div>
+    </div>
+    
+    <script>
+
+function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).then(() => {
+        alert('Copied to clipboard!');
+    }).catch(err => {
+        console.error('Failed to copy:', err);
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        document.body.appendChild(textArea);
+        textArea.select();
+        try {
+            document.execCommand('copy');
+            alert('Copied to clipboard!');
+        } catch (err) {
+            alert('Failed to copy - please copy manually');
+        }
+        document.body.removeChild(textArea);
+    });
+}
+
+
+        function showTab(tabName) {
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            document.querySelectorAll('.tab').forEach(tab => {
+                if (tab.textContent.toLowerCase() === tabName) {
+                    tab.classList.add('active');
+                }
+            });
+    
+            document.getElementById('generator-content').style.display = 
+                tabName === 'generator' ? 'block' : 'none';
+            document.getElementById('about-content').style.display = 
+                tabName === 'about' ? 'block' : 'none';
+        }
+    
+        const numWorkers = navigator.hardwareConcurrency || 4;
+        const workers = [];
+        let attempts = 0;
+        let isSearching = false;
+        let progressUpdateInterval;
+        let initialETA = 0;
+        let startTime;
+    
+        function calculateETA(totalChars, caseSensitive) {
+            const etaMap = caseSensitive ? {
+                1: 0,
+                2: 2,
+                3: 60,
+                4: 1920,
+                5: 57600,
+                6: 2304000
+            } : {
+                1: 0,
+                2: 1,
+                3: 8,
+                4: 120,
+                5: 1800,
+                6: 36000
+            };
+    
+            return etaMap[totalChars] || 0;
+        }
+    
+        function startGeneration() {
+            if (isSearching) {
+                alert('Search already in progress!');
+                return;
+            }
+    
+            isSearching = true;
+            attempts = 0;
+            startTime = Date.now();
+            document.getElementById('result').innerHTML = '';
+            document.getElementById('elapsed').textContent = 'Elapsed: 0s';
+            document.getElementById('status').innerHTML = '<div class="searching">🚀 Searching...</div>';
+    
+            clearInterval(progressUpdateInterval);
+            progressUpdateInterval = setInterval(updateStats, 1000);
+    
+            const prefixInput = document.getElementById('prefix').value;
+            const suffixInput = document.getElementById('suffix').value;
+            const caseSensitive = document.getElementById('caseSensitive').checked;
+    
+            const prefix = caseSensitive ? prefixInput : prefixInput.toLowerCase();
+            const suffix = caseSensitive ? suffixInput : suffixInput.toLowerCase();
+    
+            if (!prefix && !suffix) {
+                alert('Please enter at least a prefix or suffix!');
+                isSearching = false;
+                return;
+            }
+    
+            const validChars = /^[1-9A-HJ-NP-Za-km-z]*$/;
+            if ((prefix && !validChars.test(prefix)) || (suffix && !validChars.test(suffix))) {
+                alert('Invalid characters! Only Base58 allowed (0OIl are excluded)');
+                isSearching = false;
+                return;
+            }
+    
+            const totalChars = prefix.length + suffix.length;
+            initialETA = calculateETA(totalChars, caseSensitive);
+            document.getElementById('eta').textContent = `ETA: ${formatStaticETA(initialETA)} (estimate)`;
+    
+            for (let i = 0; i < numWorkers; i++) {
+                const workerCode = `
+                    self.importScripts('https://cdn.jsdelivr.net/npm/@solana/web3.js@1.70.1/lib/index.iife.min.js');
+                    const { Keypair } = self.solanaWeb3;
+    
+                    self.onmessage = function(e) {
+                        const { prefix, suffix, caseSensitive } = e.data;
+                        const batchSize = 1000;
+    
+                        while (true) {
+                            const keys = Array.from({ length: batchSize }, () => Keypair.generate());
+                            for (const key of keys) {
+                                const pubKey = key.publicKey.toString();
+                                const pubKeyToCheck = caseSensitive ? pubKey : pubKey.toLowerCase();
+    
+                                const matchPrefix = prefix ? pubKeyToCheck.startsWith(prefix) : true;
+                                const matchSuffix = suffix ? pubKeyToCheck.endsWith(suffix) : true;
+    
+                                if (matchPrefix && matchSuffix) {
+                                    self.postMessage({
+                                        status: 'found',
+                                        publicKey: pubKey,
+                                        privateKey: Array.from(key.secretKey)
+                                    });
+                                    return;
+                                }
+                            }
+    
+                            self.postMessage({ status: 'searching', count: batchSize });
+                        }
+                    };
+                `;
+    
+                const blob = new Blob([workerCode], { type: 'application/javascript' });
+                const worker = new Worker(URL.createObjectURL(blob));
+    
+                worker.onmessage = (e) => {
+                    if (e.data.status === 'found') {
+                        handleFoundKey(e.data);
+                    } else if (e.data.status === 'searching') {
+                        attempts += e.data.count;
+                    }
+                };
+    
+                workers.push(worker);
+                worker.postMessage({ prefix, suffix, caseSensitive });
+            }
+        }
+    
+        function stopGeneration() {
+            if (!isSearching) {
+                alert('No search is in progress!');
+                return;
+            }
+    
+            isSearching = false;
+            clearInterval(progressUpdateInterval);
+            workers.forEach((w) => w.terminate());
+            workers.length = 0;
+            
+            attempts = 0;
+            document.getElementById('attempts').textContent = 'Attempts: 0';
+            document.getElementById('speed').textContent = 'Speed: 0 keys/sec';
+            document.getElementById('eta').textContent = 'ETA: ';
+            document.getElementById('status').innerHTML = '<div style="color: #ff6666;">⛔ Search stopped by user.</div>';
+        }
+    
+        function handleFoundKey(data) {
+            isSearching = false;
+            clearInterval(progressUpdateInterval);
+            workers.forEach((w) => w.terminate());
+            document.getElementById('status').innerHTML = '';
+    
+            const privateKeyBytes = new Uint8Array(data.privateKey);
+    
+            document.getElementById('result').innerHTML = `
+                <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; margin-bottom: 20px; height: 100%; text-align: center;">
+                    <span class="match-found">MATCH FOUND!</span>
+                    <div class="attempts-text">
+                        (${attempts.toLocaleString()} attempts)
+                    </div>
+                </div>
+                <strong> Public Key: </strong>
+                <div class="key-display">${data.publicKey}</div>
+                <strong>Private Key (Base58):</strong>
+                <div class="key-display">
+                    <div class="private-key-container">
+                        <span id="privateKeyDisplay" class="hidden-private-key">
+                            ${bs58.encode(privateKeyBytes)}
+                        </span>
+                        <button onclick="togglePrivateKeyVisibility()" class="toggle-button">
+                            Show
+                        </button>
+                    </div>
+                </div>
+                <div class="button-group">
+                    <button onclick="copyToClipboard('${data.publicKey}')">
+                        Copy Public Key
+                    </button>
+                    <button onclick="copyToClipboard('${bs58.encode(privateKeyBytes)}')">
+                        Copy Private Key
+                    </button>
+                </div>
+            `;
+        }
+        function updateStats() {
+            const timeElapsed = (Date.now() - startTime) / 1000;
+            const keysPerSecond = timeElapsed > 0 ? Math.round(attempts / timeElapsed) : 0;
+            
+            const elapsedSeconds = Math.floor(timeElapsed);
+            const hours = Math.floor(elapsedSeconds / 3600);
+            const minutes = Math.floor((elapsedSeconds % 3600) / 60);
+            const seconds = elapsedSeconds % 60;
+            const elapsedString = `${hours}h ${minutes.toString().padStart(2, '0')}m ${seconds.toString().padStart(2, '0')}s`;
+            
+            document.getElementById('speed').textContent = `Speed: ${keysPerSecond.toLocaleString()} keys/sec`;
+            document.getElementById('attempts').textContent = `Attempts: ${attempts.toLocaleString()}`;
+            document.getElementById('elapsed').textContent = `Elapsed: ${elapsedString}`;
+        }
+    
+        function formatStaticETA(seconds) {
+            if (seconds === Infinity) return '∞';
+            const hours = Math.floor(seconds / 3600);
+            const minutes = Math.ceil((seconds % 3600) / 60);
+            
+            if (hours > 0) {
+                return `${hours}h ${minutes.toString().padStart(2, '0')}min`;
+            }
+            return `${minutes}min`;
+        }
+    
+        function togglePrivateKeyVisibility() {
+            const displayElement = document.getElementById('privateKeyDisplay');
+            const button = document.querySelector('.toggle-button');
+    
+            if (displayElement.classList.contains('hidden-private-key')) {
+                displayElement.classList.remove('hidden-private-key');
+                displayElement.classList.add('visible-private-key');
+                button.textContent = 'Hide';
+            } else {
+                displayElement.classList.remove('visible-private-key');
+                displayElement.classList.add('hidden-private-key');
+                button.textContent = 'Show';
+            }
+        }
+    
+        const fixedMiddle = 'SSSWynyxW5uIg68X0sYGn28k1NsW5U4zd60D11pxV7E2';
+    
+        function updateExampleAddress() {
+            const prefix = document.getElementById('prefix').value;
+            const suffix = document.getElementById('suffix').value;
+            const totalCustom = prefix.length + suffix.length;
+            
+            if (totalCustom > 6) return;
+    
+            const middleStart = prefix.length;
+            const middleEnd = 44 - suffix.length;
+            const middlePart = fixedMiddle.substring(middleStart, middleEnd);
+            
+            document.getElementById('exampleAddress').textContent = prefix + middlePart + suffix;
+    
+            updateETA();
+        }
+    
+        function updateETA() {
+            const prefix = document.getElementById('prefix').value;
+            const suffix = document.getElementById('suffix').value;
+            const caseSensitive = document.getElementById('caseSensitive').checked;
+            const totalChars = prefix.length + suffix.length;
+            const eta = calculateETA(totalChars, caseSensitive);
+            document.getElementById('eta').textContent = `ETA: ${formatStaticETA(eta)} (estimate)`;
+        }
+    
+        function enforceMaxLength() {
+            const prefixInput = document.getElementById('prefix');
+            const suffixInput = document.getElementById('suffix');
+            const prefixLength = prefixInput.value.length;
+            const suffixLength = suffixInput.value.length;
+            const total = prefixLength + suffixLength;
+    
+            prefixInput.maxLength = Math.max(6 - suffixLength, 0);
+            suffixInput.maxLength = Math.max(6 - prefixLength, 0);
+    
+            prefixInput.disabled = false;
+            suffixInput.disabled = false;
+    
+            if (total >= 6) {
+                prefixInput.maxLength = prefixLength;
+                suffixInput.maxLength = suffixLength;
+            }
+        }
+    
+        document.getElementById('prefix').addEventListener('input', () => {
+            enforceMaxLength();
+            updateExampleAddress();
+        });
+    
+        document.getElementById('suffix').addEventListener('input', () => {
+            enforceMaxLength();
+            updateExampleAddress();
+        });
+    
+        document.getElementById('caseSensitive').addEventListener('change', () => {
+            updateETA();
+        });
+    
+        updateExampleAddress();
+    
+        const bs58 = {
+            encode: (uint8array) => {
+                const alphabet = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz';
+                let zeros = 0;
+    
+                const arr = uint8array instanceof Uint8Array ? 
+                    uint8array : 
+                    new Uint8Array(uint8array);
+    
+                while (zeros < arr.length && arr[zeros] === 0) zeros++;
+    
+                const input = Array.from(arr.subarray(zeros));
+                const digits = [0];
+    
+                input.forEach((byte) => {
+                    let carry = byte;
+                    for (let j = 0; j < digits.length; j++) {
+                        carry += digits[j] << 8;
+                        digits[j] = carry % 58;
+                        carry = (carry / 58) | 0;
+                    }
+                    while (carry > 0) {
+                        digits.push(carry % 58);
+                        carry = (carry / 58) | 0;
+                    }
+                });
+    
+                return '1'.repeat(zeros) + digits.reverse().map((d) => alphabet[d]).join('');
+            }
+        };
+    </script>
+</footer>
+
+<style>
+
+.container {
+    padding-bottom: 60px;
+}
+
+footer {
+    position: fixed;
+    bottom: -60px;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    background: #000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 30px;
+    border-top: 1px solid #333;
+    transition: bottom 0.3s ease-in-out;
+    z-index: 1000;
+}
+
+.footer-left {
+    color: #666;
+    font-size: 0.9em;
+}
+
+.footer-right {
+    display: flex;
+    gap: 20px; 
+    align-items: center;
+    margin-right: 30px;
+}
+
+.footer-right a {
+    font-size: 24px;
+    color: #666;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.footer-right a:hover {
+    color: #14f195;
+    transform: translateY(-2px);
+}
+</style>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const footer = document.getElementById("dynamic-footer");
+    
+    window.addEventListener("scroll", () => {
+        const scrolled = window.scrollY > 100;
+        footer.style.bottom = scrolled ? "0" : "-60px";
+    });
+    
+    footer.style.bottom = window.scrollY > 100 ? "0" : "-60px";
+});
+
+</script>
+</script>
+
+<footer id="dynamic-footer">
+    <div class="footer-content">
+        <div class="footer-right">
+            <a href="https://x.com/vanitywallets" target="_blank"><i class="fab fa-twitter"></i></a>
+            |
+            <a href="https://github.com/patriksmole/vanity" target="_blank"><i class="fab fa-github"></i></a>
+        </div>
+    </div>
+    <div class="footer-left">
+        © 2025 SOFIR d.o.o.ㅤㅤㅤㅤㅤㅤㅤ
+    </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"></script>
+
+</html>
+
+
