@@ -1,4 +1,3 @@
-https://pbs.twimg.com/profile_images/1887931824979980288/nzJ4p_zs_400x400.jpg
 ![image](https://github.com/user-attachments/assets/4fafe2e6-73be-4f90-a1dc-24e82b9e0cb8)
 
 Fastest Solana Vanity Wallet Generator
