@@ -1,6 +1,3 @@
-![image](https://github.com/user-attachments/assets/20e9b7e8-fd30-4a42-bb72-9737e592f801)
-![azica](https://github.com/user-attachments/assets/7d2299ba-71ee-4987-805f-928d0591c5a2)
-
 # Solana Vanity Wallet Generator
 
 
