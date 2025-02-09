@@ -38,12 +38,3 @@ Unlike other services, this project does **not** require API keys because:
 - **No Dependencies on Centralized Services**: This tool does not rely on external APIs, reducing the risk of downtime, rate limits, or censorship.
 
 By keeping everything local and open source, we ensure **maximum security and full user control over their wallet generation process**.
-
----
-
-## How to Use
-1. **Enter a prefix and/or suffix** for the wallet address.
-2. Click **"Generate Wallet"** to start searching for a matching address.
-3. **Monitor progress** using the displayed metrics.
-4. Once found, **securely save your private key**.
-5. **Never share your private key** to keep your funds safe.
