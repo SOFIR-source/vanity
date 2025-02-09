@@ -2,6 +2,11 @@
 
 # Solana Vanity Wallet Generator
 
+
+### About This Tool
+
+This Solana vanity address generator helps you create Solana wallet addresses with custom prefixes and/or suffixes.
+
 ## Features
 
 ### 🎯 Custom Address Generation
